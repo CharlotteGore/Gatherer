@@ -31,47 +31,82 @@
 
 				});
 
+			});
+
+			
+		});
+
+
+		describe('and some invites declined', function(){
+
+			it('fires a callback with error', function(done){
+
+				var gathering = gatherer();
+
+				for(var i = 0; i < 100; i++){
+
+					gathering.createInvitation(function(accept, decline){
+
+						setTimeout(function(){
+
+							(Math.round(Math.random())) ? accept() : decline();
+
+						}, Math.floor((Math.random() * 500 )) );
+
+					});
+
+				}
+
+				gathering.sendInvitations(function(err){
+
+					err.should.be.ok;
+
+					(gathering.invitesAccepted + gathering.invitesDeclined).should.equal(100)
+
+					done();
+
+				});
+
 			
 			});
 
 		});
 
+	});
 
-		describe('using gatherer with 100 invitations, no timeout', function(){
+	describe('using gatherer with 10 invitation and a timeout', function(){
 
-			describe('and some invites declined', function(){
+		describe('and the callbacks dont return', function(){
 
-				it('fires a callback with error', function(done){
+			it('fires the callback with error', function(done){
 
-					var gathering = gatherer();
+				var gathering = gatherer();
 
-					for(var i = 0; i < 100; i++){
+				for(var i = 0; i < 10; i++){
 
-						gathering.createInvitation(function(accept, decline){
+					gathering.createInvitation(function(accept, decline){
 
-							setTimeout(function(){
+						setTimeout(function(){
 
-								(Math.round(Math.random())) ? accept() : decline();
+							
 
-							}, Math.floor((Math.random() * 500)) );
-
-						});
-
-					}
-
-					gathering.sendInvitations(function(err){
-
-						err.should.be.ok;
-
-						(gathering.invitesAccepted + gathering.invitesDeclined).should.equal(100)
-
-						done();
+						}, Math.floor((Math.random() * 100 )) );
 
 					});
 
-				
-				});
+				}
 
+				gathering.sendInvitations(function(err){
+
+					err.should.equal('Error: Timed out');
+
+					(gathering.invitesAccepted + gathering.invitesDeclined).should.equal(0)
+
+					done();
+
+				}, {timeout: 500});
+
+			
 			});
 
 		});

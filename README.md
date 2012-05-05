@@ -19,13 +19,13 @@ To install
 
 In your javascript file.
 
-	var gatherer = require('gatherer');
+	var gathering = require('gatherer');
 
 ## Creating a party
 
 Create a new gathering..
 
-	var gathering = gatherer(); // timeout is optional.
+	var gathering = gatherer(); 
 
 Create your invitations...
 
@@ -52,6 +52,14 @@ Send the invitations, executing a callback when they're done. Returns 'err' if t
 			// some invites were declined... err === number of declines
 		}
 	});
+
+You can also set a limit on how long you want to wait for the invites:
+
+	gathering.sendInvitations(function(){
+		if(err==='Error: Timed out'){
+			// it waited 2000 miliseconds then gave up			
+		}
+	}, { timeout : 2000 }) // will give up after 2000 ms. Warning: This doesn't cancel the execution of callbacks that are still running.
 
 
 ### Run the tests
