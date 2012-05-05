@@ -25,7 +25,7 @@ In your javascript file.
 
 Create a new gathering..
 
-	var gathering = gatherer({ timeout : 20000}); // timeout is optional.
+	var gathering = gatherer(); // timeout is optional.
 
 Create your invitations...
 
