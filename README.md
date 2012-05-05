@@ -33,10 +33,9 @@ Create your invitations...
 		gathering.createInvitation( function( accept, decline ){
 			fs.readFile( file, 'utf8', function( err, data ){
 				if( !err ){
-					sources[ file ] = data;
+					// do something with your file data..
 					accept();
 				} else {
-					sources[ file ] = null;
 					decline();
 				}
 			});
@@ -46,14 +45,13 @@ Create your invitations...
 
 Send the invitations, executing a callback when they're done. Returns 'err' if there's an err, otherwise nothing.
 
-	gathering.sendInvites(function(err){
+	gathering.sendInvitations(function(err){
 		if(!err){
 			// all invites were accepted
 		} else {
-			// some invites were declined...
+			// some invites were declined... err === number of declines
 		}
 	});
-
 
 
 ### Run the tests
