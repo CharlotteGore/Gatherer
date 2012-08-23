@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/CharlotteGore/Gatherer.png)](http://travis-ci.org/CharlotteGore/Gatherer)
 #Gatherer
 
 ## Intro
